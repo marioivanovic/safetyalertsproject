@@ -1,0 +1,49 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="alert">Alerte</label>
+    <input
+      type="text"
+      class="form-control"
+      id="alert"
+      formControlName="alert"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="form.controls['alert'].invalid && form.controls['alert'].touched"
+    >
+      Champs requis
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="descriptions">Descriptions</label>
+    <input
+      type="text"
+      class="form-control"
+      id="descriptions"
+      formControlName="descriptions"
+    />
+    <div class="alert alert-danger">
+      Champs requis
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="form.controls['descriptions'].invalid && form.controls['descriptions'].touched && form.controls['description'].errors?.['minlength'] "
+    >
+      Une description valide comporte 2 caractère minimum
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="state">state</label>
+    <select class="form-control" id="state" formControlName="state">
+      <option *ngFor="let state of states | keyvalue" [value]="state.key">
+        {{ state.value }}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>
